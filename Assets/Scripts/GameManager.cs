@@ -1,7 +1,9 @@
+using System.Globalization;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Padrao.Core.Singleton;
+using DG.Tweening;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -15,6 +17,15 @@ public class GameManager : Singleton<GameManager>
     [Header("References")]
     [SerializeField]
     private Transform startPoint;
+
+    [Header("Animation")]
+    [SerializeField]
+    private float duration = .2f;
+    [SerializeField]
+    private float delay = 0.5f;
+    [SerializeField]
+    private Ease ease = Ease.OutBack;
+
 
     private GameObject _currentPlayer;
 
@@ -30,6 +41,7 @@ public class GameManager : Singleton<GameManager>
     public void SpawnPlayer(){
         _currentPlayer = Instantiate(playerPrefab);
         _currentPlayer.transform.position = startPoint.position;
+        _currentPlayer.transform.DOScale(0, duration).SetEase(ease).From().SetDelay(delay);
     }
 
 }
