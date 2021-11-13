@@ -22,7 +22,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private float duration = .2f;
     [SerializeField]
-    private float delay = 0.5f;
+    private float delay = .1f;
     [SerializeField]
     private Ease ease = Ease.OutBack;
 
