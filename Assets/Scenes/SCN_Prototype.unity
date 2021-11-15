@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody2d: {fileID: 495171765}
   speed: 10
+  runSpeedMultplier: 1.5
   jumpForce: 20
 --- !u!212 &495171768
 SpriteRenderer:

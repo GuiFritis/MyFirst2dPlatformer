@@ -12,8 +12,11 @@ public class Player : MonoBehaviour
     private Vector2 friction = new Vector2(.1f, 0);
 
     public float speed;
+    public float runSpeedMultplier;
 
     public float jumpForce = 20f;
+
+    private float _curSpeed;
 
     // Update is called once per frame
     void Update()
@@ -23,12 +26,15 @@ public class Player : MonoBehaviour
     }
 
     private void Move(){
+
+        _curSpeed = speed * (Input.GetKey(KeyCode.LeftShift)? runSpeedMultplier : 1);
+
         if(Input.GetKey(KeyCode.RightArrow)){
             // rigidbody2d.MovePosition(rigidbody2d.position + velocity * Time.deltaTime);
-            rigidbody2d.velocity = new Vector2(speed, rigidbody2d.velocity.y);
+            rigidbody2d.velocity = new Vector2(_curSpeed, rigidbody2d.velocity.y);
         } else if(Input.GetKey(KeyCode.LeftArrow)){
             // rigidbody2d.MovePosition(rigidbody2d.position - velocity * Time.deltaTime);
-            rigidbody2d.velocity = new Vector2(-speed, rigidbody2d.velocity.y);
+            rigidbody2d.velocity = new Vector2(-_curSpeed, rigidbody2d.velocity.y);
         }
 
         if(rigidbody2d.velocity.x > 0){
