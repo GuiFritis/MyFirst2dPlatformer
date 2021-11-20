@@ -27,6 +27,10 @@ public class Player : MonoBehaviour
     public float jumpScaleX = .7f;
     public float jumpAnimationDur = .2f;
     public float landAnimationDur = .2f;
+
+    public float jumpRotationDur = .5f;
+
+    public Ease jumpRotationEase = Ease.InBack;
     public Ease jumpEase = Ease.OutBack;
 
     [Header("Damage")]
@@ -68,13 +72,13 @@ public class Player : MonoBehaviour
             DOTween.Kill(rigidbody2d.transform);
             rigidbody2d.transform.localScale = Vector2.one;
 
-            AnimateJump();
-
             rigidbody2d.velocity = Vector2.up * jumpForce;
 
             if(grounded){
+                AnimateJump();
                 grounded = false;
             } else {
+                AnimateDoubleJump();
                 doubleJumped = true;
             }
         }
@@ -83,6 +87,10 @@ public class Player : MonoBehaviour
     private void AnimateJump(){
         rigidbody2d.transform.DOScaleY(jumpScaleY, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
         rigidbody2d.transform.DOScaleX(jumpScaleX, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+    }
+
+    private void AnimateDoubleJump(){
+        rigidbody2d.transform.DORotate(new Vector3(0, 0, 360), jumpRotationDur, RotateMode.FastBeyond360).SetEase(jumpEase).SetRelative();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
