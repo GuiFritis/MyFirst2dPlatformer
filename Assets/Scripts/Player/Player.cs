@@ -13,6 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SpriteRenderer sprite;
 
+    [Header("Animation")]
+    [SerializeField]
+    private Animator animator;
+    public string boolRun = "Running";
+
+
     [Header("Speed Setup")]
     [SerializeField]
     private Vector2 friction = new Vector2(.1f, 0);
@@ -27,11 +33,11 @@ public class Player : MonoBehaviour
     public float jumpScaleX = .7f;
     public float jumpAnimationDur = .2f;
     public float landAnimationDur = .2f;
-
-    public float jumpRotationDur = .5f;
-
-    public Ease jumpRotationEase = Ease.InBack;
     public Ease jumpEase = Ease.OutBack;
+
+    [Header("Move Animation Setup")]
+    public float moveAnimationDur = .2f;
+    public Ease moveEase = Ease.OutBack;
 
     [Header("Damage")]
     public float dmgDur = .2f;
@@ -50,14 +56,28 @@ public class Player : MonoBehaviour
 
     private void Move(){
 
-        _curSpeed = speed * (Input.GetKey(KeyCode.LeftShift)? runSpeedMultplier : 1);
+        if(Input.GetKey(KeyCode.LeftShift)){
+            _curSpeed = speed * runSpeedMultplier;
+            animator.speed = runSpeedMultplier;
+        } else {
+            _curSpeed = speed;
+            animator.speed = 1;
+        }
 
         if(Input.GetKey(KeyCode.RightArrow)){
-            // rigidbody2d.MovePosition(rigidbody2d.position + velocity * Time.deltaTime);
+            if(rigidbody2d.transform.localScale.x != 1){
+                rigidbody2d.transform.DOScaleX(1, moveAnimationDur).SetEase(moveEase);
+            }
+            animator.SetBool(boolRun, true);
             rigidbody2d.velocity = new Vector2(_curSpeed, rigidbody2d.velocity.y);
         } else if(Input.GetKey(KeyCode.LeftArrow)){
-            // rigidbody2d.MovePosition(rigidbody2d.position - velocity * Time.deltaTime);
+            if(rigidbody2d.transform.localScale.x != -1){
+                rigidbody2d.transform.DOScaleX(-1, moveAnimationDur).SetEase(moveEase);
+            }
+            animator.SetBool(boolRun, true);
             rigidbody2d.velocity = new Vector2(-_curSpeed, rigidbody2d.velocity.y);
+        } else {
+            animator.SetBool(boolRun, false);
         }
 
         if(rigidbody2d.velocity.x > 0){
@@ -69,44 +89,62 @@ public class Player : MonoBehaviour
 
     private void Jump(){
         if(Input.GetKeyDown(KeyCode.Space) && (grounded || !doubleJumped)){
-            DOTween.Kill(rigidbody2d.transform);
-            rigidbody2d.transform.localScale = Vector2.one;
+            // DOTween.Kill(rigidbody2d.transform);
+            // rigidbody2d.transform.localScale = Vector2.one;
+            AnimateJump();
 
             rigidbody2d.velocity = Vector2.up * jumpForce;
 
             if(grounded){
-                AnimateJump();
                 grounded = false;
             } else {
-                AnimateDoubleJump();
                 doubleJumped = true;
             }
+        }
+
+        if(rigidbody2d.velocity.y < -rigidbody2d.gravityScale){
+            AnimateFall();
         }
     }
 
     private void AnimateJump(){
-        rigidbody2d.transform.DOScaleY(jumpScaleY, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
-        rigidbody2d.transform.DOScaleX(jumpScaleX, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        // rigidbody2d.transform.DOScaleY(jumpScaleY, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        // rigidbody2d.transform.DOScaleX(jumpScaleX, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        animator.SetBool("Jumping", true);
     }
 
-    private void AnimateDoubleJump(){
-        rigidbody2d.transform.DORotate(new Vector3(0, 0, 360), jumpRotationDur, RotateMode.FastBeyond360).SetEase(jumpEase).SetRelative();
+    private void AnimateFall(){
+        if(!grounded){
+            animator.SetBool("Falling", true);
+            animator.SetBool("Jumping", false);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") && !grounded){
-            DOTween.Kill(rigidbody2d.transform);
-            rigidbody2d.transform.localScale = Vector2.one;
+            // DOTween.Kill(rigidbody2d.transform);
+            // rigidbody2d.transform.localScale = Vector2.one;
             AnimateLanding();
             grounded = true;
             doubleJumped = false;
         }
     }
 
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") && grounded){
+            grounded = false;
+            AnimateFall();
+        }
+    }
+
     private void AnimateLanding(){
-        rigidbody2d.transform.DOScaleY(jumpScaleX, landAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
-        rigidbody2d.transform.DOScaleX(jumpScaleY, landAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        // rigidbody2d.transform.DOScaleY(jumpScaleX, landAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        // rigidbody2d.transform.DOScaleX(jumpScaleY, landAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
+        animator.SetTrigger("Land");        
+        animator.SetBool("Falling", false);
+        animator.SetBool("Jumping", false);
     }
 
     public void onDamageTaken(){
