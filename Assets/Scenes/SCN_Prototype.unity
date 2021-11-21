@@ -395,6 +395,7 @@ MonoBehaviour:
   friction: {x: 0.2, y: 0}
   speed: 10
   runSpeedMultplier: 1.5
+  airSpeedMultiplier: 0.7
   jumpForce: 25
   jumpScaleY: 1.2
   jumpScaleX: 0.8
