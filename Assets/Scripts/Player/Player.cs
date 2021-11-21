@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private Vector2 friction = new Vector2(.1f, 0);
     public float speed;
     public float runSpeedMultplier;
+    public float airSpeedMultiplier;
 
     [Header("Jump Setup")]
     public float jumpForce = 20f;
@@ -56,7 +57,10 @@ public class Player : MonoBehaviour
 
     private void Move(){
 
-        if(Input.GetKey(KeyCode.LeftShift)){
+        if(!grounded){
+            _curSpeed = speed * airSpeedMultiplier;
+            animator.speed = 1;
+        } else if(Input.GetKey(KeyCode.LeftShift)){
             _curSpeed = speed * runSpeedMultplier;
             animator.speed = runSpeedMultplier;
         } else {
