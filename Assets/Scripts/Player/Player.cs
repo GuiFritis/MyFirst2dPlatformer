@@ -151,9 +151,4 @@ public class Player : MonoBehaviour
         animator.SetBool("Jumping", false);
     }
 
-    public void onDamageTaken(){
-        DOTween.Kill(sprite);
-        sprite.DOColor(Color.red, dmgDur).SetEase(dmgEase).From();
-    }
-
 }
