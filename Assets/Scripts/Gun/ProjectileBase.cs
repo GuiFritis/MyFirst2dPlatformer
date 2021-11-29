@@ -23,7 +23,7 @@ public class ProjectileBase : MonoBehaviour
         transform.Translate(direction * Time.deltaTime * side);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         var enemy = collision.gameObject.GetComponent<EnemyBase>();
 
@@ -31,5 +31,6 @@ public class ProjectileBase : MonoBehaviour
             enemy.Damage(damage);
             Destroy(gameObject);
         }
+
     }
 }

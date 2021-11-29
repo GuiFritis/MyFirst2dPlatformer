@@ -17,7 +17,7 @@ public class GunBase : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.S)){
-            StartCoroutine(nameof(StartShoot));
+            _shootCoroutine =  StartCoroutine(nameof(StartShoot));
         } else if(Input.GetKeyUp(KeyCode.S) && _shootCoroutine != null){
             StopCoroutine(_shootCoroutine);
         }
