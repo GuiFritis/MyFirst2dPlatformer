@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class HealthBase : MonoBehaviour
 
     public float delayToKill = 0f;
 
-    public UnityEvent damageCallback;
+    public Action OnDeath;
 
     private int _curLife;
 
@@ -41,9 +42,6 @@ public class HealthBase : MonoBehaviour
         }
 
         _curLife -= damage;
-        if(damageCallback != null){
-            damageCallback.Invoke();
-        }
 
         if(_curLife <= 0){
             Kill();
@@ -59,6 +57,10 @@ public class HealthBase : MonoBehaviour
 
         if(destroyOnKill){
             Destroy(gameObject, delayToKill);
+        }
+
+        if(OnDeath != null){
+            OnDeath.Invoke();
         }
     }
 }

@@ -394,7 +394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143701411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.55, y: -13.06, z: 0}
+  m_LocalPosition: {x: 28.55, y: -12.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1521131465}
@@ -442,6 +442,7 @@ MonoBehaviour:
   damage: 1
   animator: {fileID: 1521131468}
   triggerAtack: Attack
+  triggetDie: Die
   healthBase: {fileID: 143701417}
 --- !u!50 &143701415
 Rigidbody2D:
@@ -463,7 +464,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &143701416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,10 +500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLife: 3
   destroyOnKill: 1
-  delayToKill: 0.5
-  damageCallback:
-    m_PersistentCalls:
-      m_Calls: []
+  delayToKill: 1
   _flashColor: {fileID: 143701416}
 --- !u!1 &147079642
 GameObject:
@@ -1517,6 +1515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody2d: {fileID: 495171765}
   sprite: {fileID: 495171768}
+  healthBase: {fileID: 495171770}
   animator: {fileID: 1515404635}
   boolRun: Running
   friction: {x: 0.2, y: 0}
@@ -1531,6 +1530,7 @@ MonoBehaviour:
   jumpEase: 27
   moveAnimationDur: 0.2
   moveEase: 27
+  triggerDie: Die
   dmgDur: 0.2
   dmgEase: 26
 --- !u!212 &495171768
@@ -1612,23 +1612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLife: 5
-  destroyOnKill: 1
-  delayToKill: 0.5
-  damageCallback:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 495171767}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: onDamageTaken
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  destroyOnKill: 0
+  delayToKill: 0
   _flashColor: {fileID: 1335246606}
 --- !u!212 &508070727 stripped
 SpriteRenderer:
@@ -4074,6 +4059,19 @@ MonoBehaviour:
   - {fileID: 1299040671}
   flashColor: {r: 1, g: 0, b: 0, a: 0.49803922}
   falshDuration: 0.2
+--- !u!114 &1335246607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335246604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfbbb541f60c0749a1bb25491a76e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 495171767}
 --- !u!1 &1336694716
 GameObject:
   m_ObjectHideFlags: 0
@@ -4642,6 +4640,56 @@ Transform:
   m_Father: {fileID: 558268393}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1610378854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1610378855}
+  - component: {fileID: 1610378856}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1610378855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610378854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1845277957}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1610378856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610378854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c9827469832614ba83c921c1cdc892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 495171764}
+  enemies:
+  - {fileID: 143701411}
+  startPoint: {fileID: 495171769}
+  duration: 0.2
+  delay: 0.1
+  ease: 27
 --- !u!1 &1652070262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3090786764695304946, guid: 3de838754c767a446a5473969062a84e, type: 3}
@@ -4707,6 +4755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 0
+  textCoins: {fileID: 2106513782}
 --- !u!1001 &1706404582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5068,6 +5117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1679442864}
+  - {fileID: 1610378855}
   m_Father: {fileID: 1413800238}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5095,7 +5145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866160160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4447393508313267549}

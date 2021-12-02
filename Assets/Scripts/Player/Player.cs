@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer sprite;
+    
+    [SerializeField]
+    private HealthBase healthBase;
 
     [Header("Animation")]
     [SerializeField]
@@ -40,6 +43,9 @@ public class Player : MonoBehaviour
     public float moveAnimationDur = .2f;
     public Ease moveEase = Ease.OutBack;
 
+    [Header("Death Animation Setup")]
+    public string triggerDie = "Die";
+
     [Header("Damage")]
     public float dmgDur = .2f;
     public Ease dmgEase = Ease.InBack;
@@ -47,6 +53,13 @@ public class Player : MonoBehaviour
     private bool grounded = true;
     private bool doubleJumped = false;
     private float _curSpeed;
+
+    void Awake()
+    {
+        if(healthBase != null){
+            healthBase.OnDeath += OnPlayerDeath;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -111,6 +124,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnPlayerDeath(){
+        healthBase.OnDeath -= OnPlayerDeath;
+
+        animator.SetTrigger(triggerDie);
+    }
+
     private void AnimateJump(){
         // rigidbody2d.transform.DOScaleY(jumpScaleY, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
         // rigidbody2d.transform.DOScaleX(jumpScaleX, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
@@ -149,6 +168,11 @@ public class Player : MonoBehaviour
         animator.SetTrigger("Land");        
         animator.SetBool("Falling", false);
         animator.SetBool("Jumping", false);
+    }
+
+    public void DestroyMe()
+    {
+        Destroy(gameObject);
     }
 
 }

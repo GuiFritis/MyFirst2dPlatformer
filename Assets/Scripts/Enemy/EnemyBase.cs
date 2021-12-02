@@ -9,8 +9,16 @@ public class EnemyBase : MonoBehaviour
     public Animator animator;
 
     public string triggerAtack = "Attack";
+    public string triggetDie = "Die";
 
     public HealthBase healthBase;
+
+    void Awake()
+    {
+        if(healthBase != null){
+            healthBase.OnDeath += OnEnemyDeath;
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,6 +26,7 @@ public class EnemyBase : MonoBehaviour
 
         if(healthBase != null){
             healthBase.TakeDamage(damage);
+            this.healthBase.TakeDamage(1);
             PlayAttackAnimation();
         }
     }
@@ -26,7 +35,16 @@ public class EnemyBase : MonoBehaviour
         animator.SetTrigger(triggerAtack);
     }
 
+    private void PlayDieAnimation(){
+        animator.SetTrigger(triggetDie);
+    }
+
     public void Damage(int amount){
         healthBase.TakeDamage(amount);
+    }
+
+    private void OnEnemyDeath(){
+        healthBase.OnDeath -= OnEnemyDeath;
+        PlayDieAnimation();        
     }
 }
