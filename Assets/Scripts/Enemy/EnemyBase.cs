@@ -26,7 +26,6 @@ public class EnemyBase : MonoBehaviour
 
         if(healthBase != null){
             healthBase.TakeDamage(damage);
-            this.healthBase.TakeDamage(1);
             PlayAttackAnimation();
         }
     }
