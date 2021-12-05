@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     [Header("Move Animation Setup")]
     public float moveAnimationDur = .2f;
     public Ease moveEase = Ease.OutBack;
+    public float moveAnimationStop = 3f;
+
 
     [Header("Death Animation Setup")]
     public string triggerDie = "Die";
@@ -93,7 +95,7 @@ public class Player : MonoBehaviour
             }
             animator.SetBool(boolRun, true);
             rigidbody2d.velocity = new Vector2(-_curSpeed, rigidbody2d.velocity.y);
-        } else {
+        } else if(rigidbody2d.velocity.x > -moveAnimationStop && rigidbody2d.velocity.x < moveAnimationStop){
             animator.SetBool(boolRun, false);
         }
 
@@ -101,7 +103,7 @@ public class Player : MonoBehaviour
             rigidbody2d.velocity -= friction;
         } else if (rigidbody2d.velocity.x < 0){
             rigidbody2d.velocity += friction;
-        }
+        } 
     }
 
     private void Jump(){
