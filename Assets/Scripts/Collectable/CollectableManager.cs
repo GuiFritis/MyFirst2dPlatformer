@@ -8,7 +8,7 @@ public class CollectableManager : Singleton<CollectableManager>
 {
     public int coins;
 
-    public TextMeshProUGUI textCoins;
+    public TextMeshProUGUI UITextCoins;
 
     void Start()
     {
@@ -18,11 +18,11 @@ public class CollectableManager : Singleton<CollectableManager>
     private void Reset()
     {
         coins = 0;
-        textCoins.text = "X" + coins;
+        UITextCoins.text = "X" + coins;
     }
 
     public void AddCoin(int amount = 1){
         coins += amount;
-        textCoins.text = "X" + coins;
+        UITextCoins.text = "X" + coins;
     }
 }
