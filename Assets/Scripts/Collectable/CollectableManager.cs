@@ -6,9 +6,7 @@ using TMPro;
 
 public class CollectableManager : Singleton<CollectableManager>
 {
-    public int coins;
-
-    public TextMeshProUGUI UITextCoins;
+    public SOInt coins;
 
     void Start()
     {
@@ -17,12 +15,10 @@ public class CollectableManager : Singleton<CollectableManager>
 
     private void Reset()
     {
-        coins = 0;
-        UITextCoins.text = "X" + coins;
+        coins.value = 0;
     }
 
     public void AddCoin(int amount = 1){
-        coins += amount;
-        UITextCoins.text = "X" + coins;
+        coins.value += amount;
     }
 }
