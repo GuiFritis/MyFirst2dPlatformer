@@ -4764,7 +4764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 0
-  textCoins: {fileID: 2106513782}
+  UITextCoins: {fileID: 2106513782}
 --- !u!1001 &1706404582
 PrefabInstance:
   m_ObjectHideFlags: 0
