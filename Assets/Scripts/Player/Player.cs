@@ -15,8 +15,6 @@ public class Player : MonoBehaviour
     
     [SerializeField]
     private HealthBase healthBase;
-    [SerializeField]
-    private Animator animator;
 
     [Header("Setup")]
     public SOPlayerSetup soPlayerSetup;
@@ -24,12 +22,15 @@ public class Player : MonoBehaviour
     private bool grounded = true;
     private bool doubleJumped = false;
     private float _curSpeed;
+    private Animator _curPlayer;
 
     void Awake()
     {
         if(healthBase != null){
             healthBase.OnDeath += OnPlayerDeath;
         }
+
+        _curPlayer = Instantiate(soPlayerSetup.player, transform);
     }
 
     // Update is called once per frame
@@ -43,29 +44,29 @@ public class Player : MonoBehaviour
 
         if(!grounded){
             _curSpeed = soPlayerSetup.speed * soPlayerSetup.airSpeedMultiplier;
-            animator.speed = 1;
+            _curPlayer.speed = 1;
         } else if(Input.GetKey(KeyCode.LeftShift)){
             _curSpeed = soPlayerSetup.speed * soPlayerSetup.runSpeedMultplier;
-            animator.speed = soPlayerSetup.runSpeedMultplier;
+            _curPlayer.speed = soPlayerSetup.runSpeedMultplier;
         } else {
             _curSpeed = soPlayerSetup.speed;
-            animator.speed = 1;
+            _curPlayer.speed = 1;
         }
 
         if(Input.GetKey(KeyCode.RightArrow)){
             if(rigidbody2d.transform.localScale.x != 1){
                 rigidbody2d.transform.DOScaleX(1, soPlayerSetup.moveAnimationDur).SetEase(soPlayerSetup.moveEase);
             }
-            animator.SetBool(soPlayerSetup.boolRun, true);
+            _curPlayer.SetBool(soPlayerSetup.boolRun, true);
             rigidbody2d.velocity = new Vector2(_curSpeed, rigidbody2d.velocity.y);
         } else if(Input.GetKey(KeyCode.LeftArrow)){
             if(rigidbody2d.transform.localScale.x != -1){
                 rigidbody2d.transform.DOScaleX(-1, soPlayerSetup.moveAnimationDur).SetEase(soPlayerSetup.moveEase);
             }
-            animator.SetBool(soPlayerSetup.boolRun, true);
+            _curPlayer.SetBool(soPlayerSetup.boolRun, true);
             rigidbody2d.velocity = new Vector2(-_curSpeed, rigidbody2d.velocity.y);
         } else if(rigidbody2d.velocity.x > -soPlayerSetup.moveAnimationStop && rigidbody2d.velocity.x < soPlayerSetup.moveAnimationStop){
-            animator.SetBool(soPlayerSetup.boolRun, false);
+            _curPlayer.SetBool(soPlayerSetup.boolRun, false);
         }
 
         if(rigidbody2d.velocity.x > 0){
@@ -98,19 +99,19 @@ public class Player : MonoBehaviour
     private void OnPlayerDeath(){
         healthBase.OnDeath -= OnPlayerDeath;
 
-        animator.SetTrigger(soPlayerSetup.triggerDie);
+        _curPlayer.SetTrigger(soPlayerSetup.triggerDie);
     }
 
     private void AnimateJump(){
         // rigidbody2d.transform.DOScaleY(jumpScaleY, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
         // rigidbody2d.transform.DOScaleX(jumpScaleX, jumpAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
-        animator.SetBool("Jumping", true);
+        _curPlayer.SetBool("Jumping", true);
     }
 
     private void AnimateFall(){
         if(!grounded){
-            animator.SetBool("Falling", true);
-            animator.SetBool("Jumping", false);
+            _curPlayer.SetBool("Falling", true);
+            _curPlayer.SetBool("Jumping", false);
         }
     }
 
@@ -136,9 +137,9 @@ public class Player : MonoBehaviour
     private void AnimateLanding(){
         // rigidbody2d.transform.DOScaleY(jumpScaleX, landAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
         // rigidbody2d.transform.DOScaleX(jumpScaleY, landAnimationDur).SetLoops(2, LoopType.Yoyo).SetEase(jumpEase);
-        animator.SetTrigger("Land");        
-        animator.SetBool("Falling", false);
-        animator.SetBool("Jumping", false);
+        _curPlayer.SetTrigger("Land");        
+        _curPlayer.SetBool("Falling", false);
+        _curPlayer.SetBool("Jumping", false);
     }
 
     public void DestroyMe()
