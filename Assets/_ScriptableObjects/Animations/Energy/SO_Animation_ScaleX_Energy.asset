@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76787c2fc8875c47bc5285ec083c64b, type: 3}
   m_Name: SO_Animation_ScaleX_Energy
   m_EditorClassIdentifier: 
-  value: 0
-  duration: 0.5
-  delay: 0.1
-  ease: 33
-  loops: 0
-  loopType: 0
+  value: -1
+  duration: 0.1
+  delay: 0
+  ease: 8
+  loops: 3
+  loopType: 1
