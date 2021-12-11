@@ -12,11 +12,18 @@ public class GunBase : MonoBehaviour
 
     public Transform playerSideReference;
 
+    public SOInt soIntEnergy;
+
     private Coroutine _shootCoroutine;
+
+    void Start()
+    {
+        soIntEnergy.value = 10;
+    }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S)){
+        if(Input.GetKeyDown(KeyCode.S) && soIntEnergy.value > 0){
             _shootCoroutine =  StartCoroutine(nameof(StartShoot));
         } else if(Input.GetKeyUp(KeyCode.S) && _shootCoroutine != null){
             StopCoroutine(_shootCoroutine);
@@ -25,8 +32,12 @@ public class GunBase : MonoBehaviour
 
     IEnumerator StartShoot(){
         while(true){
-            Shoot();
-            yield return new WaitForSeconds(fireRate);
+            if(soIntEnergy.value > 0){
+                Shoot();
+                yield return new WaitForSeconds(fireRate);
+            } else {
+                StopCoroutine(nameof(_shootCoroutine));
+            }
         }
     }
 
@@ -34,5 +45,6 @@ public class GunBase : MonoBehaviour
         var projectile = Instantiate(prefabProjectile);
         projectile.transform.position = shootPos.position;
         projectile.side = playerSideReference.localScale.x;
+        soIntEnergy.value--;
     }
 }
