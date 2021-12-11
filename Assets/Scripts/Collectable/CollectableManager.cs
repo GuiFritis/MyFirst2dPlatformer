@@ -7,6 +7,7 @@ using TMPro;
 public class CollectableManager : Singleton<CollectableManager>
 {
     public SOInt coins;
+    public SOInt energy;
 
     void Start()
     {
@@ -20,5 +21,9 @@ public class CollectableManager : Singleton<CollectableManager>
 
     public void AddCoin(int amount = 1){
         coins.value += amount;
+    }
+
+    public void AddEnergy(int amount = 1){
+        energy.value += amount;
     }
 }
