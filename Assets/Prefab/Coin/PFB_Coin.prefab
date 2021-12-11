@@ -144,8 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  collectingMoveY: 1
-  collectingDur: 0.5
-  colletingEase: 33
-  collectingFadeDelay: 0.2
-  coinSprite: {fileID: 0}
+  collectingMoveY: {fileID: 11400000, guid: 202555be505e0e5408b4d8ec08a240be, type: 2}
+  collectingFade: {fileID: 11400000, guid: 0ae71ca72efffd54db26941700ca1f66, type: 2}
+  coinSprite: {fileID: 6420983290489963637}

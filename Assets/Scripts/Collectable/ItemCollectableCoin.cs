@@ -6,19 +6,16 @@ using DG.Tweening;
 public class ItemCollectableCoin : ItemCollectableBase
 {
 
-    public float collectingMoveY = 1f;
-    public float collectingDur = 0.5f;
-    public Ease colletingEase = Ease.InFlash;
-
-    public float collectingFadeDelay = 0.2f;
+    public SOAnimation collectingMoveY;
+    public SOAnimation collectingFade;
 
     public SpriteRenderer coinSprite;
 
     protected override void Collect()
     {
-        transform.DOMoveY(collectingMoveY, collectingDur).SetEase(colletingEase);
-        coinSprite.DOFade(0, collectingDur).SetEase(colletingEase).SetDelay(collectingFadeDelay);
-        Invoke(nameof(Disactivate), collectingDur+collectingFadeDelay);
+        collectingMoveY.DGAnimate(transform.DOMoveY(collectingMoveY.value , collectingMoveY.duration));
+        collectingFade.DGAnimate(coinSprite.DOFade(collectingFade.value, collectingFade.duration));
+        Invoke(nameof(Disactivate), collectingMoveY.duration+collectingFade.duration);
         OnCollect();
     }
 
