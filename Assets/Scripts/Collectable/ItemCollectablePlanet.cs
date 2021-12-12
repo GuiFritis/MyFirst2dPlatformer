@@ -11,17 +11,15 @@ public class ItemCollectablePlanet : ItemCollectableBase
     public SOAnimation collectingScale;
     public SOAnimation collectingFade;
 
-    public SpriteRenderer planetSprite;
-
     protected override void Collect()
     {
         
         collectingMoveY.DGAnimate(transform.DOMoveY(collectingMoveY.value , collectingMoveY.duration));
         collectingScaleX.DGAnimate(transform.DOScaleX(transform.localScale.x * collectingScaleX.value, collectingScaleX.duration));
         collectingScale.DGAnimate(transform.DOScale(transform.localScale * collectingScale.value, collectingScale.duration));
-        collectingFade.DGAnimate(planetSprite.DOFade(collectingFade.value, collectingFade.duration));
-        Invoke(nameof(Disactivate), collectingMoveY.duration+collectingFade.duration);
-        OnCollect();
+        collectingFade.DGAnimate(collectableSprite.DOFade(collectingFade.value, collectingFade.duration));
+        Invoke(nameof(OnCollect), collectingFade.delay);
+        Invoke(nameof(HideObject), collectingFade.delay + hideDelay + collectParticleSystem.main.duration);
     }
 
     private void Disactivate(){

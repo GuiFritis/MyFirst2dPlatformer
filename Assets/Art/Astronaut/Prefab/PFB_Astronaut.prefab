@@ -47,7 +47,7 @@ MonoBehaviour:
   prefabProjectile: {fileID: 2701953478563078342, guid: f1e54d9240e6c104f80a65c53086a5b8, type: 3}
   shootPos: {fileID: 1738074734}
   fireRate: 0.2
-  playerSideReference: {fileID: 0}
+  playerSideReference: {fileID: 8007466312498025151}
   soIntEnergy: {fileID: 11400000, guid: 4c18f532c20f6914d900e4f1bf0528c5, type: 2}
 --- !u!1 &1738074733
 GameObject:

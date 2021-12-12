@@ -9,18 +9,12 @@ public class ItemCollectableCoin : ItemCollectableBase
     public SOAnimation collectingMoveY;
     public SOAnimation collectingFade;
 
-    public SpriteRenderer coinSprite;
-
     protected override void Collect()
     {
         collectingMoveY.DGAnimate(transform.DOMoveY(collectingMoveY.value , collectingMoveY.duration));
-        collectingFade.DGAnimate(coinSprite.DOFade(collectingFade.value, collectingFade.duration));
-        Invoke(nameof(Disactivate), collectingMoveY.duration+collectingFade.duration);
-        OnCollect();
-    }
-
-    private void Disactivate(){
-        gameObject.SetActive(false);
+        collectingFade.DGAnimate(collectableSprite.DOFade(collectingFade.value, collectingFade.duration));
+        Invoke(nameof(OnCollect), collectingFade.delay);
+        Invoke(nameof(HideObject), collectingFade.delay + hideDelay + collectParticleSystem.main.duration);
     }
     protected override void OnCollect()
     {

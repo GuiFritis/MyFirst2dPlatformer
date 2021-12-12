@@ -6,7 +6,10 @@ public class ItemCollectableBase : MonoBehaviour
 {
 
     public string playerTag = "Player";
-
+    public ParticleSystem collectParticleSystem;
+    public float hideDelay = 1f;
+    public SpriteRenderer collectableSprite;
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.CompareTag(playerTag)){
@@ -15,9 +18,17 @@ public class ItemCollectableBase : MonoBehaviour
     }
 
     protected virtual void Collect(){
-        gameObject.SetActive(false);
+        Invoke(nameof(HideObject), hideDelay);
         OnCollect();
     }
 
-    protected virtual void OnCollect(){}
+    protected void HideObject(){        
+        gameObject.SetActive(false);
+    }
+
+    protected virtual void OnCollect(){
+        if(collectParticleSystem != null){
+            collectParticleSystem.Play();
+        }
+    }
 }
