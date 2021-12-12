@@ -31,20 +31,16 @@ public class GunBase : MonoBehaviour
     }
 
     IEnumerator StartShoot(){
-        while(true){
-            if(soIntEnergy.value > 0){
-                Shoot();
-                yield return new WaitForSeconds(fireRate);
-            } else {
-                StopCoroutine(nameof(_shootCoroutine));
-            }
+        while(soIntEnergy.value > 0){
+            Shoot();
+            yield return new WaitForSeconds(fireRate);
         }
     }
 
     public void Shoot(){
-        var projectile = Instantiate(prefabProjectile);
-        projectile.transform.position = shootPos.position;
-        projectile.side = playerSideReference.localScale.x;
         soIntEnergy.value--;
+        var projectile = Instantiate(prefabProjectile);
+        projectile.side = playerSideReference.lossyScale.x;
+        projectile.transform.position = shootPos.position;
     }
 }
