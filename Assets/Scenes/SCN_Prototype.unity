@@ -1289,6 +1289,8 @@ MonoBehaviour:
   vfxSetups:
   - vfxType: 0
     prefab: {fileID: 2138414405013246656, guid: 7e222797409c87e4fa30a6fe10325a17, type: 3}
+  - vfxType: 1
+    prefab: {fileID: 6779136435304091578, guid: e14e8c60322d2404baf17429c068e272, type: 3}
 --- !u!1 &409786469
 GameObject:
   m_ObjectHideFlags: 0

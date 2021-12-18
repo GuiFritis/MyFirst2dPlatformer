@@ -29,6 +29,7 @@ public class ProjectileBase : MonoBehaviour
 
         if(enemy != null){
             enemy.Damage(damage);
+            VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.SHOOT, transform.position);
             Destroy(gameObject);
         }
 

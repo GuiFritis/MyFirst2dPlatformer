@@ -7,7 +7,8 @@ public class VFXManager : Singleton<VFXManager>
 {
     
     public enum VFXType{
-        JUMP
+        JUMP,
+        SHOOT
     }
 
     public List<VFXManagerSetup> vfxSetups;
