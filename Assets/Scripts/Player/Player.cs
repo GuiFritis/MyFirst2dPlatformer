@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     [Header("Setup")]
     public SOPlayerSetup soPlayerSetup;
 
+    [Header("VFX")]
+    public ParticleSystem moveVFX;
+
     private bool grounded = true;
     private bool doubleJumped = false;
     private float _curSpeed;
@@ -85,6 +88,8 @@ public class Player : MonoBehaviour
             rigidbody2d.velocity = Vector2.up * soPlayerSetup.jumpForce;
 
             if(grounded){
+                StopMoveVFX();
+                PlayJumpVFX();
                 grounded = false;
             } else {
                 doubleJumped = true;
@@ -140,6 +145,22 @@ public class Player : MonoBehaviour
         _curPlayer.SetTrigger("Land");        
         _curPlayer.SetBool("Falling", false);
         _curPlayer.SetBool("Jumping", false);
+        PlayMoveVFX();
+    }
+
+    private void PlayJumpVFX(){
+        VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.JUMP, transform.position);
+    }
+
+    private void PlayMoveVFX(){
+        if(moveVFX != null){
+            moveVFX.Play();
+        }
+    }
+    private void StopMoveVFX(){
+        if(moveVFX != null){
+            moveVFX.Stop();
+        }
     }
 
     public void DestroyMe()
