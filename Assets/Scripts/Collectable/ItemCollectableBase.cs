@@ -10,6 +10,9 @@ public class ItemCollectableBase : MonoBehaviour
     public float hideDelay = 1f;
     public SpriteRenderer collectableSprite;
     
+    [Header("Sounds")]
+    public AudioSource audioSorce;
+    
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.CompareTag(playerTag)){
@@ -20,6 +23,9 @@ public class ItemCollectableBase : MonoBehaviour
     protected virtual void Collect(){
         Invoke(nameof(HideObject), hideDelay);
         OnCollect();
+        if(audioSorce != null){
+            audioSorce.Play();
+        }
     }
 
     protected void HideObject(){        
