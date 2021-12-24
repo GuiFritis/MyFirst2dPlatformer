@@ -6,13 +6,21 @@ public class AudioRandomPlayClip : MonoBehaviour
 {
     public List<AudioClip> audiosClips;
 
-    private AudioSource _audioSource;
+    public List<AudioSource> audioSources;
+
+    private int _index = 0;
 
     public void PlayRandomAudio(){
-        if(audiosClips.Count > 0){
-            _audioSource.clip = audiosClips[Random.Range(0, audiosClips.Count)];
-            _audioSource.Play();
+
+        if(_index >= audioSources.Count){
+            _index = 0;
         }
+        var audioSource = audioSources[_index];
+
+        audioSource.clip = audiosClips[Random.Range(0, audiosClips.Count)];
+        audioSource.Play();
+        _index++;
+
     }
 
 }
