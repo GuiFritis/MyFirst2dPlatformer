@@ -9,7 +9,13 @@ AudioMixerSnapshotController:
   m_Name: Menu
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: b554d02b6bf66cd438f66e25d7a953d1
-  m_FloatValues: {}
+  m_FloatValues:
+    d2184350f8529bd4caebff7c962caa46: 0
+    19825201963d4454495026a41e0b595d: 1.7
+    2f60d53b2afa4844aa27d8ce60c1acb0: -5
+    4f02c53c69330b847a8604c9df3e4cf3: -5
+    c53935acf86ff2549acda0f85ca1bae1: 0.86
+    a235b2dc76c59304c830ce0b52cc10e4: 0
   m_TransitionOverrides: {}
 --- !u!245 &-8439729739933611032
 AudioMixerSnapshotController:
@@ -20,7 +26,9 @@ AudioMixerSnapshotController:
   m_Name: Background
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 91d1bbbf48461074f80d23a3ff307606
-  m_FloatValues: {}
+  m_FloatValues:
+    19825201963d4454495026a41e0b595d: 1.7
+    2f60d53b2afa4844aa27d8ce60c1acb0: -5
   m_TransitionOverrides: {}
 --- !u!244 &-5846224392600284105
 AudioMixerEffectController:
@@ -91,7 +99,11 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: a235b2dc76c59304c830ce0b52cc10e4
+    name: AmbienceVolume
+  - guid: d2184350f8529bd4caebff7c962caa46
+    name: SFXVolume
   m_AudioMixerGroupViews:
   - guids:
     - 8d3f0cb5577f81649bcc96db853fd716
@@ -147,7 +159,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 5c10b2648b315fd428fbd600c39827ed
   m_FloatValues:
     19825201963d4454495026a41e0b595d: 1.7
-    2f60d53b2afa4844aa27d8ce60c1acb0: -16
+    2f60d53b2afa4844aa27d8ce60c1acb0: -5
   m_TransitionOverrides: {}
 --- !u!244 &2049649346975702950
 AudioMixerEffectController:
