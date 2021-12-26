@@ -14,6 +14,9 @@ public class GunBase : MonoBehaviour
 
     public SOInt soIntEnergy;
 
+    public AudioRandomPlayClip shootRandomAudio;
+    public AudioRandomPlayClip shootHitRandomAudio;
+
     private Coroutine _shootCoroutine;
 
     void Start()
@@ -40,7 +43,12 @@ public class GunBase : MonoBehaviour
     public void Shoot(){
         soIntEnergy.value--;
         var projectile = Instantiate(prefabProjectile);
-        projectile.side = playerSideReference.lossyScale.x;
+        projectile.side = playerSideReference.parent.lossyScale.x;
         projectile.transform.position = shootPos.position;
+        projectile.shotHitRandomAudio = shootHitRandomAudio;
+        if(shootRandomAudio != null){
+            shootRandomAudio.PlayRandomAudio();
+        }
+
     }
 }

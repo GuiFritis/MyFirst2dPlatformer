@@ -11,6 +11,8 @@ public class ProjectileBase : MonoBehaviour
 
     public float side = 1f;
 
+    public AudioRandomPlayClip shotHitRandomAudio;
+
     public int damage = 1;
 
     void Awake()
@@ -30,6 +32,9 @@ public class ProjectileBase : MonoBehaviour
         if(enemy != null){
             enemy.Damage(damage);
             VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.SHOOT, transform.position);
+            if(shotHitRandomAudio != null){
+                shotHitRandomAudio.PlayRandomAudio();
+            }
             Destroy(gameObject);
         }
 

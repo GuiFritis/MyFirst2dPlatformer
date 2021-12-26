@@ -13,6 +13,8 @@ public class EnemyBase : MonoBehaviour
 
     public HealthBase healthBase;
 
+    public AudioPlayHelper deathSound;
+
     void Awake()
     {
         if(healthBase != null){
@@ -44,6 +46,9 @@ public class EnemyBase : MonoBehaviour
 
     private void OnEnemyDeath(){
         healthBase.OnDeath -= OnEnemyDeath;
+        if(deathSound != null){
+            deathSound.PlayAudio();
+        }
         PlayDieAnimation();        
     }
 }
