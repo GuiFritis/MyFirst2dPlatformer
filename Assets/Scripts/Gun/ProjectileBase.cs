@@ -7,13 +7,15 @@ public class ProjectileBase : MonoBehaviour
 
     public Vector3 direction;
 
-    public float timeToDestroy = 2f;
+    public float timeToDestroy = 1f;
 
     public float side = 1f;
 
     public AudioRandomPlayClip shotHitRandomAudio;
 
     public int damage = 1;
+
+    public string playerTag = "Player";
 
     void Awake()
     {
@@ -31,12 +33,13 @@ public class ProjectileBase : MonoBehaviour
 
         if(enemy != null){
             enemy.Damage(damage);
+        }
+        if(!collision.CompareTag(playerTag)){
             VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.SHOOT, transform.position);
             if(shotHitRandomAudio != null){
                 shotHitRandomAudio.PlayRandomAudio();
             }
             Destroy(gameObject);
         }
-
     }
 }

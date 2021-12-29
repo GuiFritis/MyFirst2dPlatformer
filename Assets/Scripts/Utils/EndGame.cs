@@ -6,8 +6,8 @@ using UnityEngine;
 public class EndGame : MonoBehaviour
 {
     public string playerTag = "Player";
-
     public GameObject uiEndGame;
+    public GameObject uiInGame;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,5 +18,7 @@ public class EndGame : MonoBehaviour
 
     private void CallEndGame(){
         uiEndGame.SetActive(true);
+        uiInGame.SetActive(false);
+        PauseManager.Instance.Pause();
     }
 }

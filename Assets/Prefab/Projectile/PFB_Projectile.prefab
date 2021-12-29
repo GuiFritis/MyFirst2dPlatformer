@@ -62,8 +62,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 30, y: 0, z: 0}
-  timeToDestroy: 2
+  timeToDestroy: 1
   side: 1
+  shotHitRandomAudio: {fileID: 0}
   damage: 1
 --- !u!1 &7389282701807468221
 GameObject:

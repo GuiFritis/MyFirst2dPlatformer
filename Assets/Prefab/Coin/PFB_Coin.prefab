@@ -276,6 +276,7 @@ MonoBehaviour:
   collectParticleSystem: {fileID: 4356280225517324699}
   hideDelay: 1
   collectableSprite: {fileID: 6420983290489963637}
+  collider2d: {fileID: 2757810904625891092}
   audioSorce: {fileID: 4112585665865047025}
   collectingMoveY: {fileID: 11400000, guid: 202555be505e0e5408b4d8ec08a240be, type: 2}
   collectingFade: {fileID: 11400000, guid: 0ae71ca72efffd54db26941700ca1f66, type: 2}

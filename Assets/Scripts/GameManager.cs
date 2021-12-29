@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Padrao.Core.Singleton;
 using DG.Tweening;
+using Cinemachine;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -11,12 +12,14 @@ public class GameManager : Singleton<GameManager>
     [Header("Player")]
     public GameObject playerPrefab;
 
-    [Header("Player")]
+    [Header("Enemies")]
     public List<GameObject> enemies;
 
     [Header("References")]
     [SerializeField]
     private Transform startPoint;
+    [SerializeField]
+    private CinemachineVirtualCamera cinemachine;
 
     [Header("Animation")]
     [SerializeField]
@@ -26,7 +29,6 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Ease ease = Ease.OutBack;
 
-
     private GameObject _currentPlayer;
 
     void Start()
@@ -35,7 +37,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     public void Init(){
-        // SpawnPlayer();
+        SpawnPlayer();
+        cinemachine.Follow = _currentPlayer.transform;
+        cinemachine.LookAt = _currentPlayer.transform;
     }
 
     public void SpawnPlayer(){

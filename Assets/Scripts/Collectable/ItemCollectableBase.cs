@@ -9,6 +9,7 @@ public class ItemCollectableBase : MonoBehaviour
     public ParticleSystem collectParticleSystem;
     public float hideDelay = 1f;
     public SpriteRenderer collectableSprite;
+    public Collider2D collider2d;
     
     [Header("Sounds")]
     public AudioSource audioSorce;
@@ -17,6 +18,9 @@ public class ItemCollectableBase : MonoBehaviour
     {
         if(collision.transform.CompareTag(playerTag)){
             Collect();
+            if(collider2d != null){
+                collider2d.enabled = false;
+            }
         }
     }
 

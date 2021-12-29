@@ -13,7 +13,9 @@ public class ItemCollectablePlanet : ItemCollectableBase
 
     protected override void Collect()
     {
-        
+        if(audioSorce != null){
+            audioSorce.Play();
+        }        
         collectingMoveY.DGAnimate(transform.DOMoveY(collectingMoveY.value , collectingMoveY.duration));
         collectingScaleX.DGAnimate(transform.DOScaleX(transform.localScale.x * collectingScaleX.value, collectingScaleX.duration));
         collectingScale.DGAnimate(transform.DOScale(transform.localScale * collectingScale.value, collectingScale.duration));

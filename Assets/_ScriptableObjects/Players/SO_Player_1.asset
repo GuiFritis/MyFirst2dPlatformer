@@ -18,7 +18,7 @@ MonoBehaviour:
   speed: 10
   runSpeedMultplier: 1.5
   airSpeedMultiplier: 0.7
-  jumpForce: 25
+  jumpForce: 30
   jumpScaleY: 1.2
   jumpScaleX: 0.8
   jumpAnimationDur: 0.2

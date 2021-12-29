@@ -19,9 +19,9 @@ public class GunBase : MonoBehaviour
 
     private Coroutine _shootCoroutine;
 
-    void Start()
+    void Awake()
     {
-        soIntEnergy.value = 10;
+        soIntEnergy.value = 0;
     }
 
     void Update()
@@ -43,7 +43,7 @@ public class GunBase : MonoBehaviour
     public void Shoot(){
         soIntEnergy.value--;
         var projectile = Instantiate(prefabProjectile);
-        projectile.side = playerSideReference.parent.lossyScale.x;
+        projectile.side = playerSideReference.lossyScale.x;
         projectile.transform.position = shootPos.position;
         projectile.shotHitRandomAudio = shootHitRandomAudio;
         if(shootRandomAudio != null){

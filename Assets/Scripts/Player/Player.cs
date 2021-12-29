@@ -22,18 +22,19 @@ public class Player : MonoBehaviour
     [Header("VFX")]
     public ParticleSystem moveVFX;
 
+    public AudioSource deathSfx;
+
     private bool grounded = true;
     private bool doubleJumped = false;
-    private float _curSpeed;
+    [SerializeField]
     private Animator _curPlayer;
+    private float _curSpeed;
 
     void Awake()
     {
         if(healthBase != null){
             healthBase.OnDeath += OnPlayerDeath;
         }
-
-        _curPlayer = Instantiate(soPlayerSetup.player, transform);
     }
 
     // Update is called once per frame
@@ -162,9 +163,11 @@ public class Player : MonoBehaviour
             moveVFX.Stop();
         }
     }
-
     public void DestroyMe()
     {
+        if(deathSfx != null){
+            deathSfx.Play();
+        }
         Destroy(gameObject);
     }
 
