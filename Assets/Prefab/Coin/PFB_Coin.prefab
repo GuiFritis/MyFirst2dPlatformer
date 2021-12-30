@@ -288,12 +288,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 8548437056993228222}
     m_Modifications:
     - target: {fileID: 1796906936674029225, guid: bc9af09a074c9d04f8847a099a6b1d52, type: 3}
-      propertyPath: lengthInSec
-      value: 3
+      propertyPath: CollisionModule.m_Planes.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1796906936674029225, guid: bc9af09a074c9d04f8847a099a6b1d52, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 3
+      propertyPath: CollisionModule.m_Planes.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796906936674029225, guid: bc9af09a074c9d04f8847a099a6b1d52, type: 3}
+      propertyPath: CollisionModule.m_Planes.Array.data[2]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3447871551118550463, guid: bc9af09a074c9d04f8847a099a6b1d52, type: 3}
       propertyPath: m_Name

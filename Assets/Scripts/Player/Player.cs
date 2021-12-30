@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     public ParticleSystem moveVFX;
 
     public AudioSource deathSfx;
+    public AudioSource jumpSfx;
+    public AudioSource landSfx;
 
     private bool grounded = true;
     private bool doubleJumped = false;
@@ -87,7 +89,9 @@ public class Player : MonoBehaviour
             AnimateJump();
 
             rigidbody2d.velocity = Vector2.up * soPlayerSetup.jumpForce;
-
+            
+            PlayJumpSFX();
+            
             if(grounded){
                 StopMoveVFX();
                 PlayJumpVFX();
@@ -104,7 +108,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerDeath(){
         healthBase.OnDeath -= OnPlayerDeath;
-
+        PlayDeathSFX();
         _curPlayer.SetTrigger(soPlayerSetup.triggerDie);
     }
 
@@ -146,11 +150,30 @@ public class Player : MonoBehaviour
         _curPlayer.SetTrigger("Land");        
         _curPlayer.SetBool("Falling", false);
         _curPlayer.SetBool("Jumping", false);
+        PlayLandSFX();
         PlayMoveVFX();
     }
 
     private void PlayJumpVFX(){
         VFXManager.Instance.PlayVFXByType(VFXManager.VFXType.JUMP, transform.position);
+    }
+
+    private void PlayJumpSFX(){
+        if(jumpSfx != null){
+            jumpSfx.Play();
+        }
+    }
+
+    private void PlayLandSFX(){
+        if(landSfx != null){
+            landSfx.Play();
+        }
+    }
+
+    private void PlayDeathSFX(){
+        if(deathSfx != null){
+            deathSfx.Play();
+        }
     }
 
     private void PlayMoveVFX(){
@@ -165,9 +188,6 @@ public class Player : MonoBehaviour
     }
     public void DestroyMe()
     {
-        if(deathSfx != null){
-            deathSfx.Play();
-        }
         Destroy(gameObject);
     }
 

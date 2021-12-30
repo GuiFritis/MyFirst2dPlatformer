@@ -1378,7 +1378,7 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 14842
+        atime0: 18311
         atime1: 65535
         atime2: 65535
         atime3: 65535
@@ -3678,6 +3678,8 @@ ParticleSystem:
     multiplyColliderForceByParticleSpeed: 0
     multiplyColliderForceByCollisionAngle: 1
     m_Planes:
+    - {fileID: 0}
+    - {fileID: 0}
     - {fileID: 0}
     m_Dampen:
       serializedVersion: 2

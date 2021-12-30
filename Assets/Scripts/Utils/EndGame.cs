@@ -9,6 +9,8 @@ public class EndGame : MonoBehaviour
     public GameObject uiEndGame;
     public GameObject uiInGame;
 
+    public AudioSource winSFX;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.transform.CompareTag(playerTag)){
@@ -17,8 +19,15 @@ public class EndGame : MonoBehaviour
     }
 
     private void CallEndGame(){
+        PlayWinSFX();
         uiEndGame.SetActive(true);
         uiInGame.SetActive(false);
         PauseManager.Instance.Pause();
+    }
+
+    private void PlayWinSFX(){
+        if(winSFX != null){
+            winSFX.Play();
+        }
     }
 }
